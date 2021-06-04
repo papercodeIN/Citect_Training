@@ -30,27 +30,34 @@ END
 
 sDate=sDD1+IntToStr(DateDay(TimeCurrent()))+"-"+sMM1+IntToStr(DateMonth(TimeCurrent()))+"-"+IntToStr(DateYear(TimeCurrent(),1));
 sDate1=sDD1+IntToStr(DateDay(TimeCurrent()))+"-"+sMM1+IntToStr(DateMonth(TimeCurrent()))+"-"+IntToStr(DateYear(TimeCurrent(),1))+" "+Time(1);
-		
-IF FileExist("F:\REPORT_DATA\DATA\Date"+sDate+".csv")=0 THEN
 
-	iErr = FileCopy("F:\REPORT_DATA\TEMPLATE\DATA.csv","F:\REPORT_DATA\DATA\Date"+sDate+".csv",0); 
-  
+                    IF FileExist("F:\REPORT_DATA\DATA\Date"+sDate+".csv")=0 THEN   
+						iErr = FileCopy("F:\REPORT_DATA\TEMPLATE\DATA.csv","F:\REPORT_DATA\DATA\Date"+sDate+".csv",0);   
+					END
+
+
+					IF iErr = 0 THEN
+
+						hFile = FileOpen("F:\REPORT_DATA\DATA\Date"+sDate+".csv","a+");
+	
+				                                FileWrite(hFile,sDate1+",");
+				                                FileWrite(hFile,RealToStr (Tag_1,12,2)++",");
+										        FileWrite(hFile,RealToStr (Tag_2,12,2)++",");
+										        FileWrite(hFile,RealToStr (Tag_3,12,2)++",");
+										        FileWrite(hFile,RealToStr (Tag_4,12,2)++",");  	
+	                                          FileWriteLn(hFile,"");
+	
+	
+	                     FileClose(hFile);
+	
+                    ELSE
+	                    Message("FileCopy","Error Creating File",48);
+                    END
 END
 
 
-	 IF iErr = 0 THEN
 
-		hFile = FileOpen("F:\REPORT_DATA\DATA\Date"+sDate+".csv","a+");
-				 	FileWrite(hFile,sDate1+",");
-                    FileWrite(hFile,RealToStr (Tag_1,12,2)++",");
-			        FileWrite(hFile,RealToStr (Tag_2,12,2)++",");
-			        FileWrite(hFile,RealToStr (Tag_3,12,2)++",");
-			        FileWrite(hFile,RealToStr (Tag_4,12,2)++",");  	
-     
-          FileClose(hFile);
 
-    ELSE
-       Message("FileCopy","Error Creating File = " + IntToStr(iErr),48);
-    END                               
+	 
 
-END
+	 
