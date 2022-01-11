@@ -2,7 +2,7 @@
 
 ```markdown
 
-- Test_30.ctz :
+- Test_30.ctz : 👇
   Machine Expert Basic Communication with Citect SCADA/ Plant SCADA in Simulation Mode (Via Modbus TCP Protocol).
 
 ```
